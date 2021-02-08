@@ -2,43 +2,44 @@ package Main;
 
 import java.util.Scanner;
 import java.lang.String;
+import java.util.regex.Matcher;
 public class StartMain {
     public static void main(String[] args)
     {
-      Scanner sc = new Scanner(System.in);
-      String str, sa, sb;
+      Scanner sv = new Scanner(System.in);
+      String str, sa, sb,check;
+      boolean x, y;
       int a, b;
-      /*
-      Пример правильного ввода 1 + 1, требуется при неверном вводе типа 1+1 завершать программу.
-      в первом условии идет проверка на тип первого символа если он типа int он идёт по пути вычисления с арабскими числами, во втором случае с римскими.
-      как осуществить проверку такого ввода чтобы вызвать исключение?
-             */
-      try {
+      check = sv.nextLine();
+      x = check.matches("\\d{1,2}\\s\\D\\s\\d{1,2}");
+      y = check.matches("\\D{1,4}\\s\\D\\s\\D{1,4}");
+      if(x || y)
+      {
 
-          if (sc.hasNextInt())
-          {
-              a = sc.nextInt();
-              str = sc.next();
-              b = sc.nextInt();
-              Calculator cal = new Calculator(str, a, b);
-              System.out.println(cal.getResult());
-          }
 
-          else
+          Scanner sc = new Scanner(check);
+          try {
+
+              if (sc.hasNextInt())
               {
-              sa = sc.next();
-              str = sc.next();
-              if(sc.hasNextInt()) throw new IllegalArgumentException();
-              sb = sc.next();
-              Calculator cal = new Calculator(str, sa, sb);
-              System.out.println(cal.getRes());
+                  a = sc.nextInt();
+                  str = sc.next();
+                  b = sc.nextInt();
+                  Calculator cal = new Calculator(str, a, b);
+                  System.out.println(cal.getResult());
+              } else {
+                  sa = sc.next();
+                  str = sc.next();
+                  if (sc.hasNextInt()) throw new IllegalArgumentException();
+                  sb = sc.next();
+                  Calculator cal = new Calculator(str, sa, sb);
+                  System.out.println(cal.getRes());
               }
 
-      }
-
-      catch (Exception e)
-      {
-          System.exit(0);
+          } catch (Exception e)
+          {
+              System.exit(0);
+          }
       }
     }
 }
